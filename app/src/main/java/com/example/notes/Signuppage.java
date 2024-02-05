@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +17,10 @@ public class Signuppage extends AppCompatActivity {
     EditText editTextusername;
     EditText editTextemail;
     EditText editTextconpassword;
+    EditText editTextpassword;
+    ImageView lockimage;
+    ImageView eyeimg;
+    boolean passwordvisible=false;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,6 +58,27 @@ public class Signuppage extends AppCompatActivity {
                 editTextconpassword.setText("");
             }
         });
-
+        eyeimg=(ImageView) findViewById(R.id.clseye);
+        lockimage=(ImageView) findViewById(R.id.clslock);
+        editTextpassword=(EditText) findViewById(R.id.etpassword);
+        eyeimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(passwordvisible){
+                    eyeimg.setImageDrawable(getDrawable(R.drawable.eyecloseb));
+                    lockimage.setImageDrawable(getDrawable(R.drawable.lockb));
+                    passwordvisible=false;
+                }
+                else{
+                    eyeimg.setImageDrawable(getDrawable(R.drawable.eyeopenb));
+                    lockimage.setImageDrawable(getDrawable(R.drawable.lockopenb));
+                    passwordvisible=true;
+                }
+                int inputType = passwordvisible ?
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD :
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                editTextpassword.setInputType(inputType);
+            }
+        });
     }
 }

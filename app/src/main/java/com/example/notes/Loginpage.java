@@ -57,7 +57,7 @@ public class Loginpage extends AppCompatActivity {
             public void onClick(View v) {
                 if(passwordvisible){
                  eyeimg.setImageDrawable(getDrawable(R.drawable.eyecloseb));
-                    lockimage.setImageDrawable(getDrawable(R.drawable.lockb));
+                 lockimage.setImageDrawable(getDrawable(R.drawable.lockb));
                  passwordvisible=false;
                 }
                 else{
@@ -71,6 +71,5 @@ public class Loginpage extends AppCompatActivity {
                         editTextpassword.setInputType(inputType);
             }
         });
-
     }
 }
