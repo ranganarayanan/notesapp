@@ -57,11 +57,12 @@ public class Loginpage extends AppCompatActivity {
             public void onClick(View v) {
                 if(passwordvisible){
                  eyeimg.setImageDrawable(getDrawable(R.drawable.eyecloseb));
-                 lockimage.setImageDrawable(getDrawable(R.drawable.lockopenb));
+                    lockimage.setImageDrawable(getDrawable(R.drawable.lockb));
                  passwordvisible=false;
                 }
                 else{
                     eyeimg.setImageDrawable(getDrawable(R.drawable.eyeopenb));
+                    lockimage.setImageDrawable(getDrawable(R.drawable.lockopenb));
                     passwordvisible=true;
                 }
                 int inputType = passwordvisible ?
