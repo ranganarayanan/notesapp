@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Enter Your Password"
                 android:textSize="20dp"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -147,7 +147,6 @@
                 android:layout_height="wrap_content"
                 android:hint="Confirm Password"
                 android:textSize="20dp"
-                android:inputType="textEmailAddress"
                 android:backgroundTint="@android:color/transparent"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -155,7 +154,7 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="55dp"
-                android:src="@drawable/eyeopenb"
+                android:src="@drawable/crossb"
                 android:layout_gravity="center_vertical"
                 />
         </LinearLayout>
