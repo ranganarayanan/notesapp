@@ -24,6 +24,14 @@ public class Notespage extends AppCompatActivity {
                 startActivity(new Intent(Notespage.this,Notestakepage.class));
             }
         });
+        crosssrch=(ImageView) findViewById(R.id.crosssearch);
+        editTextsrch=(EditText)findViewById(R.id.etsearch);
+        crosssrch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextsrch.setText("");
+            }
+        });
 
     }
 }
