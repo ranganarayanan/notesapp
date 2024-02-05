@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 public class Notespage extends AppCompatActivity {
     ImageView plusimg;
+    ImageView crosssrch;
+    EditText editTextsrch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +24,6 @@ public class Notespage extends AppCompatActivity {
                 startActivity(new Intent(Notespage.this,Notestakepage.class));
             }
         });
+
     }
 }

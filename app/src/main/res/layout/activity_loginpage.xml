@@ -56,12 +56,14 @@
                 android:backgroundTint="@android:color/transparent"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:id="@+id/etmail"
                 />
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="55dp"
                 android:src="@drawable/crossb"
                 android:layout_gravity="center_vertical"
+                android:id="@+id/crossimage"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -91,7 +93,7 @@
                 android:backgroundTint="@android:color/transparent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:id="@+id/username"/>
+                android:id="@+id/etpassword"/>
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="55dp"
