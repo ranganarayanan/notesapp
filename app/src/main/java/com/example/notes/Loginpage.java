@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,8 +16,11 @@ public class Loginpage extends AppCompatActivity {
     CardView cardViewsignup;
     Button signin;
     ImageView cross;
+    ImageView eyeimg;
     EditText editTextmail;
     EditText editTextpassword;
+    boolean passwordvisible=false;
+    ImageView lockimage;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,6 +48,26 @@ public class Loginpage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editTextmail.setText("");
+            }
+        });
+        eyeimg=(ImageView) findViewById(R.id.clseye);
+        lockimage=(ImageView) findViewById(R.id.clslock);
+        eyeimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(passwordvisible){
+                 eyeimg.setImageDrawable(getDrawable(R.drawable.eyecloseb));
+                 lockimage.setImageDrawable(getDrawable(R.drawable.lockopenb));
+                 passwordvisible=false;
+                }
+                else{
+                    eyeimg.setImageDrawable(getDrawable(R.drawable.eyeopenb));
+                    passwordvisible=true;
+                }
+                int inputType = passwordvisible ?
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD :
+                        InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                        editTextpassword.setInputType(inputType);
             }
         });
 
