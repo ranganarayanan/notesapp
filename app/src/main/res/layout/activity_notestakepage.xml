@@ -23,7 +23,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <EditText
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="match_parent"
                 android:hint="Title..."
                 android:textSize="25dp"

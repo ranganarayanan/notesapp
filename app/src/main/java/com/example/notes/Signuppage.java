@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -20,6 +22,7 @@ public class Signuppage extends AppCompatActivity {
     EditText editTextpassword;
     ImageView lockimage;
     ImageView eyeimg;
+    Button signupbutton;
     boolean passwordvisible=false;
 
     @SuppressLint("MissingInflatedId")
@@ -80,5 +83,30 @@ public class Signuppage extends AppCompatActivity {
                 editTextpassword.setInputType(inputType);
             }
         });
+        signupbutton=(Button) findViewById(R.id.btnsignup);
+        signupbutton.setOnClickListener(v -> creatAccount());
+
+    }
+    void creatAccount(){
+        String name=editTextusername.getText().toString();
+        String email=editTextemail.getText().toString();
+        String password=editTextpassword.getText().toString();
+        String confirmpassword=editTextconpassword.getText().toString();
+        boolean isValidated =validateData(email,password,confirmpassword);
+    }
+    boolean validateData(String email,String password,String confirmpassword){
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            editTextemail.setError("Email is invalid");
+            return false;
+        }
+        if(password.length()<=8){
+            editTextpassword.setError("Password must be in 8 characters");
+            return false;
+        }
+        if(!password.equals(confirmpassword)){
+            editTextconpassword.setError("Password is not equal to Confirm password");
+            return false;
+        }
+        return true;
     }
 }
