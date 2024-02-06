@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -13,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Loginpage extends AppCompatActivity {
@@ -85,7 +89,24 @@ public class Loginpage extends AppCompatActivity {
     }
     void signinAccountInFirebase(String email,String password){
         FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
-        firebaseAuth.signInWithEmailAndPassword(email, password);
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+              if (task.isSuccessful()){
+                  if (firebaseAuth.getCurrentUser().isEmailVerified()){
+                      startActivity(new Intent(Loginpage.this, Notespage.class));
+                      finish();
+                  }
+                  else{
+                      Utility.showToast(Loginpage.this,"E-Mail is not verified,Please verify your E=Mail.");
+                  }
+              }
+              else{
+                  Utility.showToast(Loginpage.this,task.getException().getLocalizedMessage());
+
+              }
+            }
+        });
 
     }
     boolean validateData(String email,String password){

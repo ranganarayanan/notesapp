@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,6 +18,13 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                FirebaseUser currentuser= FirebaseAuth.getInstance().getCurrentUser();
+                if(currentuser==null){
+                    startActivity(new Intent(MainActivity.this, Loginpage.class));
+                }else{
+                    startActivity(new Intent(MainActivity.this, Notespage.class));
+                }
+
                 startActivity(new Intent(MainActivity.this, Loginpage.class));
                 finish();
             }

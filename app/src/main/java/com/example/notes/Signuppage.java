@@ -114,13 +114,15 @@ public class Signuppage extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Signuppage.this, "Succesfully create your account,Check E=Mail to verify", Toast.LENGTH_SHORT).show();
+                            Utility.showToast(Signuppage.this, "Succesfully create your account,Check E=Mail to verify");
+                           // Toast.makeText(Signuppage.this, "Succesfully create your account,Check E=Mail to verify", Toast.LENGTH_SHORT).show();
                             firebaseAuth.getCurrentUser().sendEmailVerification();
 
 
                         }
                         else{
-                            Toast.makeText(Signuppage.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            Utility.showToast(Signuppage.this, task.getException().getLocalizedMessage());
+                            //Toast.makeText(Signuppage.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
