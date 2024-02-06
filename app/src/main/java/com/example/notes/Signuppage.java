@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -10,6 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class Signuppage extends AppCompatActivity {
     ImageView aroimage;
@@ -93,14 +100,44 @@ public class Signuppage extends AppCompatActivity {
         String password=editTextpassword.getText().toString();
         String confirmpassword=editTextconpassword.getText().toString();
         boolean isValidated =validateData(email,password,confirmpassword);
+        if (!isValidated){
+            return;
+        }
+        createAccountInFirebase(email,password);
+
+
+    }
+    void createAccountInFirebase(String email,String password){
+        FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Signuppage.this,
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(Signuppage.this, "Succesfully create your account,Check E=Mail to verify", Toast.LENGTH_SHORT).show();
+                            firebaseAuth.getCurrentUser().sendEmailVerification();
+
+
+                        }
+                        else{
+                            Toast.makeText(Signuppage.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                }
+
+        );
+
+
     }
     boolean validateData(String email,String password,String confirmpassword){
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             editTextemail.setError("Email is invalid");
             return false;
         }
-        if(password.length()<=8){
-            editTextpassword.setError("Password must be in 8 characters");
+        if(password.length()<6){
+            editTextpassword.setError("Password length is invalid");
             return false;
         }
         if(!password.equals(confirmpassword)){
