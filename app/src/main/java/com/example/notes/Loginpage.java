@@ -139,6 +139,7 @@ public class Loginpage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 googleSignIn();
+                Toast.makeText(getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
 
             }
         });
