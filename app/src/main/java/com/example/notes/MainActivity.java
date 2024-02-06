@@ -23,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, Loginpage.class));
                 }else{
                     startActivity(new Intent(MainActivity.this, Notespage.class));
-                }
-
-                startActivity(new Intent(MainActivity.this, Loginpage.class));
+                     }
                 finish();
             }
         },2000);
