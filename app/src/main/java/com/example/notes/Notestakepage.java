@@ -56,5 +56,7 @@ public class Notestakepage extends AppCompatActivity {
             tedittext.setError("Title is required");
             return;
         }
+
+
     }
 }

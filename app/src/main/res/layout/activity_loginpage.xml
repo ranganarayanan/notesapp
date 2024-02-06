@@ -103,16 +103,16 @@
                 android:id="@+id/clseye"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Forget Password"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="10dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="7dp"/>
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Forget Password"-->
+<!--        android:textSize="18dp"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:layout_gravity="right"-->
+<!--        android:layout_marginRight="7dp"/>-->
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -148,6 +148,7 @@
         app:cardBackgroundColor="#CDB6B6"
         app:cardCornerRadius="15dp"
         android:layout_marginTop="20dp"
+        android:id="@+id/signinwitngoogle"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -169,7 +170,8 @@
                 android:textSize="20dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
-                android:fontFamily="@font/aldrich"/>
+                android:fontFamily="@font/aldrich"
+                />
 
         </LinearLayout>
 
