@@ -121,13 +121,10 @@ public class Signuppage extends AppCompatActivity {
                         }
                         else{
                             Toast.makeText(Signuppage.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-
                         }
-
                     }
                 }
-
-        );
+                );
 
 
     }
