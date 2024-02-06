@@ -26,8 +26,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class Loginpage extends AppCompatActivity {
     CardView cardViewsignup;
@@ -174,6 +177,18 @@ public class Loginpage extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            FirebaseUser user = auth.getCurrentUser();
+                            HashMap<String,Object> map= new HashMap<>();
+                            map.put("id",user.getUid());
+                            map.put("name",user.getDisplayName());
+                            map.put("profile",user.getPhotoUrl().toString());
+                            database.getReference().child("user").child(user.getUid()).setValue(map);
+                            startActivity(new Intent(Loginpage.this,Notespage.class));
+                        }
+                        else{
+                            Toast.makeText(Loginpage.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 });
