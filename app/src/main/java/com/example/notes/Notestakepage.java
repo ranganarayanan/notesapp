@@ -47,16 +47,23 @@ public class Notestakepage extends AppCompatActivity {
             }
         });
         savebutton=(Button) findViewById(R.id.btnsave);
-        savebutton.setOnClickListener(v -> savenote());
-    }
-    void savenote(){
-        String title = tedittext.getText().toString();
-        String message = medittext.getText().toString();
-        if(title==null||title.isEmpty()){
-            tedittext.setError("Title is required");
-            return;
-        }
+        savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title=tedittext.getText().toString();
+                String message=medittext.getText().toString();
+
+                if(title==null||title.isEmpty()){
+                    tedittext.setError("Title is required");
+                    return;
+                }
+            }
+        });
 
 
+
+
+
     }
+
 }

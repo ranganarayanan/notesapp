@@ -24,8 +24,9 @@
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="55dp"
-                android:src="@drawable/search"
+                android:src="@drawable/navigation"
                 android:layout_gravity="center_vertical"
+                android:id="@+id/navbtn"
                 />
 
             <EditText

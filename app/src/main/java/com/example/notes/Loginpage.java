@@ -138,7 +138,7 @@ public class Loginpage extends AppCompatActivity {
         cardgoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                googleSignIn();
+                //googleSignIn();
                 Toast.makeText(getApplicationContext(), "hi", Toast.LENGTH_SHORT).show();
 
             }
@@ -177,7 +177,7 @@ public class Loginpage extends AppCompatActivity {
         auth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                    public void onComplete(@NonNull Task<AuthResult> task)  {
                         if(task.isSuccessful()){
                             FirebaseUser user = auth.getCurrentUser();
                             HashMap<String,Object> map= new HashMap<>();
