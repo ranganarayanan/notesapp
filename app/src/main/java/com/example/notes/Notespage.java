@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.type.DateTime;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +40,8 @@ public class Notespage extends AppCompatActivity {
     List<String> fntime=new ArrayList<>();
     Adapter adapter;
     LinearLayoutManager layoutManager;
+    Button logout;
+    FirebaseAuth mAuth;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -96,7 +101,41 @@ public class Notespage extends AppCompatActivity {
         rView.setLayoutManager(new LinearLayoutManager(this));
         initData();
         initRecylerView();
+        logoutimg=(ImageView) findViewById(R.id.navbtn);
+
+        mAuth = FirebaseAuth.getInstance();
+        logoutimg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogBox();
+            }
+        });
     }
+  private void showDialogBox(){
+      Dialog d =new Dialog(this);
+      d.setContentView(R.layout.logout);
+      d.setCancelable(true);
+      logout=(Button)d.findViewById(R.id.logoutbtn);
+      logout.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+//              startActivity(new Intent(Notespage.this,Loginpage.class));
+              signout();
+          }
+      });
+
+
+      d.show();
+  }
+   private  void signout(){
+       mAuth.signOut();
+       Intent intent = new Intent(Notespage.this, Loginpage.class);
+       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+       startActivity(intent);
+       finish();
+   }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
