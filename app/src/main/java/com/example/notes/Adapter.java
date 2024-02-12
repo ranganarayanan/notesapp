@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,8 +33,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
 
-
-
+      String title= ntitle.get(position);
+      String message= nmessage.get(position);
+      String time= ntime.get(position);
+      holder.title.setText(title);
+      holder.message.setText(message);
+      holder.time.setText(time);
     }
 
     @Override
@@ -42,8 +47,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        private TextView title;
+        private TextView message;
+        private TextView time;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-        }
+              title=itemView.findViewById(R.id.notetitle);
+            message=itemView.findViewById(R.id.notemessage);
+            time=itemView.findViewById(R.id.notetime);        }
+
     }
 }
