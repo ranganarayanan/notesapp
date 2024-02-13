@@ -36,6 +36,8 @@ public class Notestakepage extends AppCompatActivity {
 
         tcross=(ImageView) findViewById(R.id.ettcross);
         mcross=(ImageView) findViewById(R.id.etmcross);
+        tedittext=(EditText)findViewById(R.id.etitle);
+        medittext=(EditText)findViewById(R.id.emessage);
         tcross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

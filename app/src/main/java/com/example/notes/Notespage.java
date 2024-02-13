@@ -42,6 +42,7 @@ public class Notespage extends AppCompatActivity {
     LinearLayoutManager layoutManager;
     Button logout;
     FirebaseAuth mAuth;
+    ImageView delete;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -108,6 +109,17 @@ public class Notespage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showDialogBox();
+            }
+        });
+        delete=(ImageView) findViewById(R.id.deleteicon);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                ntitle.remove(fntitle);
+//                nmessage.remove(fnmessage);
+//                ntime.remove(fntime);
+//                adapter.notifyDataSetChanged();
+
             }
         });
     }

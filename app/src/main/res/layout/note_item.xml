@@ -35,6 +35,13 @@
         android:gravity="right"
         android:id="@+id/notetime"
         />
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/delete"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="right"
+        android:id="@+id/deleteicon"/>
 
 
 </LinearLayout>
