@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.type.DateTime;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,35 +25,31 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Notespage extends AppCompatActivity {
+public class Note2Activity extends AppCompatActivity implements ItemClickListener{
     ImageView plusimg;
     ImageView crosssrch;
     EditText editTextsrch;
     RecyclerView rView;
     ImageView logoutimg;
-    List<String> ntitle;
-    List<String> fntitle=new ArrayList<>();
-    List<String> nmessage;
-    List<String> fnmessage=new ArrayList<>();
-    List<String> ntime;
-    List<String> fntime=new ArrayList<>();
-    Adapter adapter;
     LinearLayoutManager layoutManager;
     Button logout;
     FirebaseAuth mAuth;
     ImageView delete;
+    List<NoteModel> noteModelList=new ArrayList<>();
+    List<NoteModel> filterList=new ArrayList<>();
+    NotesAdapter adapter;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        setContentView(R.layout.activity_notespage);
+        setContentView(R.layout.activity_note2);
         plusimg = (ImageView) findViewById(R.id.btnplus);
         plusimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(Notespage.this, Notestakepage.class),2);
+                startActivityForResult(new Intent(Note2Activity.this, Notestakepage.class),2);
             }
         });
         crosssrch = (ImageView) findViewById(R.id.crosssearch);
@@ -74,21 +69,15 @@ public class Notespage extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!s.toString().isEmpty()){
-                    fntime.clear();
-                    fntitle.clear();
-                    fnmessage.clear();
-                    for(int i=0;i<ntitle.size();i++){
-                        if(ntitle.get(i).contains(s.toString())){
-                            fntitle.add(ntitle.get(i));
-                            fntime.add(ntime.get(i));
-                            fnmessage.add(nmessage.get(i));
+                    filterList.clear();
+                    for(NoteModel model: noteModelList){
+                        if(model.getTitle().contains(s.toString())){
+                            filterList.add(model);
                         }
                     }
                 }
                 else{
-                    fntime.addAll(ntime);
-                    fnmessage.addAll(nmessage);
-                    fntitle.addAll(ntitle);
+                    filterList.addAll(noteModelList);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -97,58 +86,49 @@ public class Notespage extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
 
             }
-        });
-        rView = (RecyclerView) findViewById(R.id.recyclerview);
-        rView.setLayoutManager(new LinearLayoutManager(this));
-        initData();
-        initRecylerView();
-        logoutimg=(ImageView) findViewById(R.id.navbtn);
 
-        mAuth = FirebaseAuth.getInstance();
+
+        });
+        logoutimg=(ImageView) findViewById(R.id.navbtn);
         logoutimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogBox();
             }
         });
-        delete=(ImageView) findViewById(R.id.deleteicon);
-        delete.setOnClickListener(new View.OnClickListener() {
+        initRecylerView();
+    }
+    private void initRecylerView() {
+        rView = findViewById(R.id.recyclerview);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        rView.setLayoutManager(layoutManager);
+        adapter=new NotesAdapter(filterList,this);
+        rView.setAdapter(adapter);
+    }
+    private void showDialogBox(){
+        Dialog d =new Dialog(this);
+        d.setContentView(R.layout.logout);
+        d.setCancelable(true);
+        logout=(Button)d.findViewById(R.id.logoutbtn);
+        logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ntitle.remove(fntitle);
-//                nmessage.remove(fnmessage);
-//                ntime.remove(fntime);
-//                adapter.notifyDataSetChanged();
-
+//              startActivity(new Intent(Notespage.this,Loginpage.class));
+                signout();
             }
         });
+
+
+        d.show();
     }
-  private void showDialogBox(){
-      Dialog d =new Dialog(this);
-      d.setContentView(R.layout.logout);
-      d.setCancelable(true);
-      logout=(Button)d.findViewById(R.id.logoutbtn);
-      logout.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-//              startActivity(new Intent(Notespage.this,Loginpage.class));
-              signout();
-          }
-      });
-
-
-      d.show();
-  }
-   private  void signout(){
-       mAuth.signOut();
-       Intent intent = new Intent(Notespage.this, Loginpage.class);
-       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-       startActivity(intent);
-       finish();
-   }
-
-
-
+    private  void signout(){
+        mAuth.signOut();
+        Intent intent = new Intent(Note2Activity.this, Loginpage.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -170,40 +150,24 @@ public class Notespage extends AppCompatActivity {
                     hour=12;
                 time=hour+":"+time+last;
             }
-            this.ntitle.add(ntitle);
-            this.nmessage.add(nmessage);
-            this.ntime.add(date.split(" ")[0]+" "+time);
-            fntime.clear();
-            fnmessage.clear();
-            fntitle.clear();
-            fntitle.addAll(this.ntitle);
-            fnmessage.addAll(this.nmessage);
-            fntime.addAll(this.ntime);
+            noteModelList.add(new NoteModel(ntitle,nmessage,date,date.split(" ")[0]+" "+time));
+            filterList.clear();
+            filterList.addAll(noteModelList);
             adapter.notifyDataSetChanged();
 
         }
     }
 
-    private void initData() {
-        ntitle = new ArrayList<>();
-        nmessage = new ArrayList<>();
-        ntime = new ArrayList<>();
-    }
-
-    private void initRecylerView() {
-        rView = findViewById(R.id.recyclerview);
-        layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        rView.setLayoutManager(layoutManager);
-        adapter = new Adapter(fntitle, fnmessage, fntime, this);
-        rView.setAdapter(adapter);
+    @Override
+    public void deleteItem(int position) {
+        String id=filterList.get(position).getId();
+        for(int i=0;i<noteModelList.size();i++)
+            if(noteModelList.get(i).getId().equals(id)){
+                noteModelList.remove(i);
+                break;
+            }
+        filterList.clear();
+        filterList.addAll(noteModelList);
         adapter.notifyDataSetChanged();
     }
-
-
 }
-
-
-
-
-

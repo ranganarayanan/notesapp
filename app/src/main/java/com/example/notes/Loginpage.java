@@ -114,7 +114,7 @@ public class Loginpage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
               if (task.isSuccessful()){
                   if (firebaseAuth.getCurrentUser().isEmailVerified()){
-                      startActivity(new Intent(Loginpage.this, Notespage.class));
+                      startActivity(new Intent(Loginpage.this, Note2Activity.class));
                       finish();
                   }
                   else{
@@ -187,7 +187,7 @@ public class Loginpage extends AppCompatActivity {
                             map.put("name",user.getDisplayName());
                             map.put("profile",user.getPhotoUrl().toString());
                             database.getReference().child("user").child(user.getUid()).setValue(map);
-                            startActivity(new Intent(Loginpage.this,Notespage.class));
+                            startActivity(new Intent(Loginpage.this,Note2Activity.class));
                         }
                         else{
                             Toast.makeText(Loginpage.this, "Something went wrong", Toast.LENGTH_SHORT).show();

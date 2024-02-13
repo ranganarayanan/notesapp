@@ -13,34 +13,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
 
-    private List<String> ntitle;
-    private List<String> nmessage;
-    private List<String> ntime;
-    private Context context;
+    private List<NoteModel> noteModelList;
     private ItemClickListener listener;
-    ImageView delete;
-    Adapter(List<String> ntitle, List<String> nmessage, List<String> ntime, Context context,ItemClickListener listener){
-        this.ntitle=ntitle;
-        this.nmessage=nmessage;
-        this.ntime=ntime;
-        this.context=context;
+    NotesAdapter(List<NoteModel> noteModelList, ItemClickListener listener){
+        this.noteModelList=noteModelList;
         this.listener=listener;
     }
     @NonNull
     @Override
-    public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NotesAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.note_item,parent,false);
         return  new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
-      String title= ntitle.get(position);
-      String message= nmessage.get(position);
-      String time= ntime.get(position);
+    public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+        NoteModel model=noteModelList.get(position);
+      String title= model.getTitle();
+      String message= model.getMessage();
+      String time= model.getTime();
       holder.title.setText(title);
       holder.message.setText(message);
       holder.time.setText(time);
@@ -55,7 +48,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return ntitle.size();
+        return noteModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

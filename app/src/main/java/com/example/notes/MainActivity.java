@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                 if(currentuser==null){
                     startActivity(new Intent(MainActivity.this, Loginpage.class));
                 }else{
-                    startActivity(new Intent(MainActivity.this, Notespage.class));
+                    startActivity(new Intent(MainActivity.this, Note2Activity.class));
                      }
                 finish();
             }
