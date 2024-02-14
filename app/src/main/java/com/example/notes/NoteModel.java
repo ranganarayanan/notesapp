@@ -1,6 +1,8 @@
 package com.example.notes;
 
-public class NoteModel {
+import java.io.Serializable;
+
+public class NoteModel implements Serializable {
     String title,message,id,time;
 
     public NoteModel(String title, String message, String id, String time) {

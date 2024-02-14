@@ -35,13 +35,29 @@
         android:gravity="right"
         android:id="@+id/notetime"
         />
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/delete"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="right"
-        android:id="@+id/deleteicon"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|right">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/edit"
+            android:id="@+id/editicon"
+            android:scaleType="centerInside"
+            android:layout_marginRight="5dp"/>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/delete"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="right"
+            android:id="@+id/deleteicon"/>
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

@@ -43,6 +43,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
               listener.deleteItem(position);
           }
       });
+      holder.editicon.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              listener.updateItem(position);
+          }
+      });
 
     }
 
@@ -57,12 +63,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         private TextView message;
         private TextView time;
         private ImageView deleteicon;
+        private ImageView editicon;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
               title=itemView.findViewById(R.id.notetitle);
             message=itemView.findViewById(R.id.notemessage);
             time=itemView.findViewById(R.id.notetime);
             deleteicon=itemView.findViewById(R.id.deleteicon);
+            editicon=itemView.findViewById(R.id.editicon);
         }
 
     }

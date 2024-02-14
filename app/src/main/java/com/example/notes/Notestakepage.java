@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.google.firestore.bundle.BundleElement;
+
 public class Notestakepage extends AppCompatActivity {
     ImageView aroimage;
     ImageView tcross;
@@ -18,6 +20,8 @@ public class Notestakepage extends AppCompatActivity {
     EditText tedittext;
     EditText medittext;
     Button savebutton;
+    NoteModel model;
+    boolean isUpdate=false;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -62,7 +66,7 @@ public class Notestakepage extends AppCompatActivity {
                 Intent intent= new Intent();
                 intent.putExtra("title",title);
                 intent.putExtra("message",message);
-                setResult(2,intent);
+                setResult(!isUpdate?2:3,intent);
                 if(title==null||title.isEmpty()){
                     tedittext.setError("Title is required");
                 }
@@ -71,11 +75,19 @@ public class Notestakepage extends AppCompatActivity {
                 }
             }
         });
+        setupforupdate();
 
+    }
 
-
-
-
+    private void setupforupdate() {
+        isUpdate=getIntent().getBooleanExtra("isUpdate",false);
+        if(isUpdate){
+            Bundle b=getIntent().getExtras();
+            model=(NoteModel) b.get("data");
+            tedittext.setText(model.getTitle());
+            medittext.setText(model.getMessage());
+            savebutton.setText("update");
+        }
     }
 
 }
